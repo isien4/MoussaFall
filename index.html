@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moussa Fall - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0a0e27;
+            color: #e4e4e7;
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(96, 165, 250, 0.3);
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            50% { transform: translateY(-100px) translateX(50px); opacity: 0.6; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            border: 5px solid rgba(96, 165, 250, 0.3);
+            box-shadow: 0 0 40px rgba(96, 165, 250, 0.5);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(96, 165, 250, 0.5); }
+            50% { box-shadow: 0 0 60px rgba(167, 139, 250, 0.8); }
+        }
+
+        .profile-name {
+            font-size: 2em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .profile-title {
+            color: #94a3b8;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-link {
+            background: rgba(96, 165, 250, 0.1);
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            text-decoration: none;
+            color: #e4e4e7;
+        }
+
+        .contact-link:hover {
+            background: rgba(96, 165, 250, 0.2);
+            transform: translateX(5px);
+            border-color: #60a5fa;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .section-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 35px;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 35px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            border-radius: 10px;
+        }
+
+        .about-text {
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #60a5fa, #a78bfa, #f472b6);
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #60a5fa;
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.8);
+        }
+
+        .timeline-header {
+            margin-bottom: 10px;
+        }
+
+        .timeline-role {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        .timeline-company {
+            font-size: 1.1em;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .timeline-date {
+            color: #94a3b8;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+
+        .timeline-tasks {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .task-item {
+            padding-left: 20px;
+            position: relative;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .task-item::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #60a5fa;
+            font-weight: bold;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(167, 139, 250, 0.1) 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(96, 165, 250, 0.3);
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2) 0%, rgba(167, 139, 250, 0.2) 100%);
+        }
+
+        .skill-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: #e4e4e7;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .education-card {
+            background: rgba(96, 165, 250, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #a78bfa;
+            transition: all 0.3s ease;
+        }
+
+        .education-card:hover {
+            background: rgba(96, 165, 250, 0.1);
+            transform: translateX(10px);
+        }
+
+        .education-degree {
+            font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 8px;
+        }
+
+        .education-school {
+            color: #cbd5e1;
+            margin-bottom: 5px;
+        }
+
+        .education-date {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+
+        .languages-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .language-badge {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            box-shadow: 0 5px 20px rgba(96, 165, 250, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .language-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(96, 165, 250, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-card {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="particle" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
+        <div class="particle" style="width: 60px; height: 60px; top: 60%; left: 80%; animation-delay: 5s;"></div>
+        <div class="particle" style="width: 80px; height: 80px; top: 80%; left: 20%; animation-delay: 10s;"></div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <div class="profile-card">
+                <div class="profile-image">
+                    <img src="moussafall.jpg" alt="" style="border-radius: 110px; width: 190px;">
+                </div>
+                <h1 class="profile-name">MOUSSA FALL</h1>
+                <p class="profile-title">Technicien Supérieur en Énergies Renouvelables</p>
+                
+                <div class="contact-links">
+                    <a href="tel:+221776319085" class="contact-link">
+                        <span>📞</span>
+                        <span>+221 77 631 90 85</span>
+                    </a>
+                    <a href="mailto:moussagueyefall96@gmail.com" class="contact-link">
+                        <span>✉</span>
+                        <span>moussagueyefall96@gmail.com</span>
+                    </a>
+                    <div class="contact-link">
+                        <span>📍</span>
+                        <span>Zac Mbao Cité Finance</span>
+                    </div>
+                    <div class="contact-link">
+                        <span>🚗</span>
+                        <span>Permis B</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="section-card">
+                    <h2 class="section-title">À Propos</h2>
+                    <p class="about-text">
+                        Passionné par la science et les nouvelles technologies, mes nombreuses et variées expériences professionnelles dans le domaine des nouvelles technologies m'ont permis de développer une très grande capacité d'apprentissage tout en me rendant très autonome. Fiable et très responsable, je peux m'épanouir pleinement dans des environnements techniques exigeants et contribuer efficacement à des projets innovants.
+                    </p>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title">Expérience Professionnelle</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <div class="timeline-role">Contrôleur Qualité </div>
+                                <div class="timeline-company">Camusat</div>
+                                <div class="timeline-date">Décembre 2024 - À nos jours</div>
+                            </div>
+                            <div class="timeline-tasks">
+                                <div class="task-item">Contrôle qualité des opérations de maintenance sur les sites techniques</div>
+                                <div class="task-item">Supervision des maintenances préventives et curatives</div>
+                                <div class="task-item">Installation et configuration de systèmes de supervision RMS</div>
+                                <div class="task-item">Mise en place de capteurs de niveau de carburant (fuel sensors)  pour le suivi à distance</div>
+                                <div class="task-item">Vérification de la conformité des installations aux normes qualité de l’entreprise</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <div class="timeline-role">Technicien d'Intervention</div>
+                                <div class="timeline-company">Sonatel</div>
+                                <div class="timeline-date">Novembre 2022 - Novembre 2024</div>
+                            </div>
+                            <div class="timeline-tasks">
+                                <div class="task-item">Contrôle des activités externalisées au niveau national (Dakar et régions)</div>
+                                <div class="task-item">Contrôle des activités ESCO</div>  
+                                <div class="task-item">Contrôle de la conformité de la modernisation des sites Sonatel</div>
+                                <div class="task-item">Contrôle de la conformité des charges énergétiques ESCO</div>
+                                <div class="task-item">Contrôle de l’exécution et de la conformité du planning de maintenance des sites</div>
+                                <div class="task-item">Contrôle de l’exécution des corrections issues du contrôle et de la maintenance préventive (MP) de Camusat et GNOC</div>
+                                <div class="task-item">Contrôle de l’exécution et de la conformité de la remédiation des sites Sonatel</div>
+                                <div class="task-item">Contrôle des activités GNOC</div>
+                                <div class="task-item">Contrôle des activités ESCO</div>  
+                                <div class="task-item">Contrôle de l’exécution de la maintenance mensuelle</div>
+                                <div class="task-item">Contrôle de l’exécution de la correction des écarts</div>
+                                <div class="task-item">Contrôle des activités Broadband (FTTX)</div>
+                                <div class="task-item">Contrôle de la conformité de la production des installations des prestataires sur le très haut débit</div>
+                                <div class="task-item">Contrôle de la conformité des prestations du SAV</div>
+                                <div class="task-item">Contrôle de la conformité des travaux supplémentaires</div>
+                                <div class="task-item">Contrôle de la conformité des plaques</div>
+                                <div class="task-item">Contrôle des suspicions de fraude sur le périmètre Broadband</div>
+                                <div class="task-item">Prise en charge du programme de déploiement des flybox</div>
+
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <div class="timeline-role">Technicien Free-lance</div>
+                                <div class="timeline-company">Indépendant</div>
+                                <div class="timeline-date">2019 - 2022</div>
+                            </div>
+                            <div class="timeline-tasks">
+                                <div class="task-item">Installation et maintenance de systèmes de climatisation</div>
+                                <div class="task-item">Installation d'équipements électriques pour bâtiments</div>
+                                <div class="task-item">Installation d'une pompe immergée (30m³/h) pour exploitation agricole  à DIOP SAO en novembre 2021.</div>
+                                <div class="task-item">Installation d’un kit solaire de 5 KVA en février 2019.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title">Compétences Techniques</h2>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon">⚡</div>
+                            <div class="skill-name">Optimisation des consommations énergétiques</div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">☀</div>
+                            <div class="skill-name">Dimensionnement, installation et  maintenance d’un système de production solaire photovoltaïque </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">💧</div>
+                            <div class="skill-name">Dimensionnement et installation d’une Pompe Solaire </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">🌬</div>
+                            <div class="skill-name">Implantation et maintenance d’une éolienne de production électrique</div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">🌬</div>
+                            <div class="skill-name">Mise en place  et maintenance d’une éolienne de pompage mécanique</div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">❄</div>
+                            <div class="skill-name">Installation et maintenance Système froid et climatisation</div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">🔌</div>
+                            <div class="skill-name">Électricité bâtiment</div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">📹</div>
+                            <div class="skill-name"> Installation de système de surveillance vidéo et système d’alarme</div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">🌐</div>
+                            <div class="skill-name">Câblage réseau</div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">💻</div>
+                            <div class="skill-name">nformatique (Pack office, Shemaplic, PV Syst)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title">Formation & Certifications</h2>
+                    <div class="education-grid">
+                        <div class="education-card">
+                            <div class="education-degree">Attestation de Formation en installation électrique</div>
+                            <div class="education-school">CACTUS TECHNOLOGY, Dakar</div>
+                            <div class="education-date">Mai 2024</div>
+                        </div>
+                        <div class="education-card">
+                            <div class="education-degree">Brevet de Technicien Supérieur en Energie Renouvelable</div>
+                            <div class="education-school">Lycée Seydina Limamou LAHI</div>
+                            <div class="education-date">Octobre 2021</div>
+                        </div>
+                        <div class="education-card">
+                            <div class="education-degree">Habilitation Électrique BT/HT</div>
+                            <div class="education-school">APAVE SAHEL</div>
+                            <div class="education-date">Mars 2023</div>
+                        </div>
+                        <div class="education-card">
+                            <div class="education-degree">Attestation de Formation en Froid et Climatisation (En ligne)</div>
+                            <div class="education-school"> Société d’Innovation Technique D’électricité, Burkina Faso</div>
+                            <div class="education-date">Juillet-Août 2023</div>
+                        </div>
+                        <div class="education-card">
+                            <div class="education-degree">Attestation de Formation en Froid et Climatisation (En ligne)</div>
+                            <div class="education-school"> Société d’Innovation Technique D’électricité, Burkina Faso</div>
+                            <div class="education-date">Juin-Juillet 2023</div>
+                        </div>
+                        <div class="education-card">
+                            <div class="education-degree">Certificat de Spécialité en installation solaire Photovoltaïque</div>
+                            <div class="education-school">Lycée Seydina Limamou LAHI, Guédiawaye</div>
+                            <div class="education-date">Février 2020</div>
+                        </div>
+                        <div class="education-card">
+                            <div class="education-degree">1ère année Physique Chimie et Sciences de la matière</div>
+                            <div class="education-school">Université Cheikh Anta DIOP de Dakar</div>
+                            <div class="education-date">2018</div>
+                        </div>
+                        <div class="education-card">
+                            <div class="education-degree">Baccalauréat S2</div>
+                            <div class="education-school">Lycée Seydina Issa Rohou LAHI, Guédiawaye</div>
+                            <div class="education-date">2017</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title">Langues</h2>
+                    <div class="languages-grid">
+                        <div class="language-badge">🇫🇷 Français - Courant</div>
+                        <div class="language-badge">🇬🇧 Anglais - Débutant</div>
+                        <div class="language-badge">🇸🇳 Wolof - Langue maternelle</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <a href="https://isien4.github.io/kaltech_studio_digital/" style="color: #a587f7; text-decoration: none;"> <p>&copy; 2025 KalTechStudioDigital - Tous droits réservés</p></a>
+        </footer>
+    </div>
+
+    <script>
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
